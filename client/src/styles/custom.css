@@ -1,0 +1,102 @@
+.card{
+    background-color: #FFF;
+    border: 1px solid #b1b1b1;
+}
+
+.w-400 {
+    width: 400px;
+}
+
+.content {
+    min-height: 85vh;
+    border : 1px solid #b1b1b1
+}
+
+.underline {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+i{
+    font-size: 18px;
+}
+
+table {
+    border: 1px solid #b1b1b1;
+}
+
+thead th {
+    border-bottom: 1px solid #b1b1b1 !important;
+    text-transform: uppercase;
+}
+
+.search-input{
+    height: 60px;
+    border-radius: 5px;
+}
+
+.divider{
+    border-bottom: 1px solid #ffffff;
+    margin: 10px 0;
+}
+
+.seat {
+    height: 30px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b1b1b1;
+    cursor: pointer;
+}
+
+.selected-seat{
+    background-color: #4ad758;
+}
+
+.selected-seat h1 {
+    color: #FFF !important;
+}
+
+.booked-seat {
+    background-color: #b1b1b1;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.loader-parent {
+    position: fixed;
+    background-color: #000;
+    inset: 0;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+}
+
+.loader {
+    height: 30px;
+    width: 30px;
+    border: 5px solid var(--color-secondary);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: loader-anim 1s linear infinite;
+}
+
+@keyframes loader-anim{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
