@@ -10,6 +10,10 @@ import PageTitle from "../../components/PageTitle";
 import TheatresList from "./TheatresList";
 import Bookings from "../Profile/Bookings";
 
+/**
+ * Theatres component สำหรับแสดงหน้า Employee Control Panel ซึ่งประกอบด้วยเมนู Theatres
+ * @returns {JSX.Element} - โค้ด JSX สำหรับแสดงหน้า Employee Control Panel พร้อมเมนู Theatres
+ */
 function Theatres() {
   return (
     <div>
@@ -21,13 +25,15 @@ function Theatres() {
           <TheatresList />
         </Tabs.TabPane>
 
-        <Tabs.TabPane tab="Bookings" key="2">
-          <Bookings />
-        </Tabs.TabPane>
-
       </Tabs>
     </div>
   );
 }
 
 export default Theatres;
+
+/**
+ * Theatres Component:
+ * 
+ * หน้าที่และการใช้งาน: Component นี้ใช้สำหรับแสดงหน้า Employee Control Panel ซึ่งประกอบด้วยเมนู Theatres
+ */
