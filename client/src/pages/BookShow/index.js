@@ -87,7 +87,7 @@ function BookShow() {
                         }
                       }}
                     >
-                      <h1 className="text-sm">{seat * columns + column + 1}</h1> // แสดงหมายเลขที่นั่งw
+                      <h1 className="text-sm">{seat * columns + column + 1}</h1>
                     </div>
                   )
                 );
