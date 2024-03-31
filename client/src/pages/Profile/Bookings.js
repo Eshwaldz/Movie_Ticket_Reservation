@@ -12,15 +12,22 @@ import { GetBookingsOfUser } from "../../apicalls/bookings";
 
 import moment from "moment";
 
+/**
+ * Component สำหรับการแสดงรายการการจองของผู้ใช้
+ * @returns {JSX.Element} - โค้ด JSX สำหรับหน้า Bookings
+ */
 function Bookings() {
-  const [bookings = [], setBookings] = useState([]);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [bookings = [], setBookings] = useState([]); // สร้าง state สำหรับเก็บข้อมูลการจอง
+  const dispatch = useDispatch(); // Hook สำหรับใช้งาน dispatch
+  const navigate = useNavigate(); // Hook สำหรับการนำทาง
 
+  /**
+   * ฟังก์ชันสำหรับการดึงข้อมูลการจองของผู้ใช้
+   */
   const getData = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await GetBookingsOfUser();
+      const response = await GetBookingsOfUser(); // เรียกใช้งาน API เพื่อดึงข้อมูลการจอง
       if (response.success) {
         setBookings(response.data);
       } else {
@@ -34,7 +41,7 @@ function Bookings() {
   };
 
   useEffect(() => {
-    getData();
+    getData(); // เรียกใช้งานฟังก์ชันเมื่อคอมโพเนนต์โหลด
   }, []);
   return (
     <div>
@@ -81,3 +88,10 @@ function Bookings() {
 }
 
 export default Bookings;
+
+/**
+ * Bookings Component:
+ * 
+ * หน้าที่/การใช้งาน: Component นี้ใช้สำหรับการแสดงรายการการจองของผู้ใช้ทั้งหมด.
+ * 
+ */
