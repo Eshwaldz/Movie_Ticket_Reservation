@@ -11,8 +11,12 @@ import { GetAllTheatresByMovie } from "../../apicalls/theatres";
 
 import moment from "moment";
 
+/**
+ * Component สำหรับแสดงรายชื่อโรงหนังที่มีการฉายหนังเรื่องนึงตามวันที่ที่กำหนด
+ * @returns {JSX.Element} โค้ด JSX สำหรับแสดงรายชื่อโรงหนังและรายละเอียดการฉายหนัง
+ */
 function TheatresForMovie() {
-  // get date from query string
+  // เก็บค่าวันที่ที่ถูกเลือกจาก query string หรือใช้ค่าปัจจุบัน
   const tempDate = new URLSearchParams(window.location.search).get("date");
   const [date, setDate] = React.useState(
     tempDate || moment().format("YYYY-MM-DD")
@@ -25,6 +29,9 @@ function TheatresForMovie() {
   const dispatch = useDispatch();
   const params = useParams();
 
+  /**
+   * ดึงข้อมูลของหนังที่กำลังแสดงตาม id ที่ระบุใน URL params
+   */
   const getData = async () => {
     try {
       dispatch(ShowLoading());
@@ -41,6 +48,9 @@ function TheatresForMovie() {
     }
   };
 
+  /**
+   * ดึงข้อมูลโรงหนังที่มีการฉายหนังเรื่องนึงตามวันที่ที่กำหนด
+   */
   const getTheatres = async () => {
     try {
       dispatch(ShowLoading());
@@ -68,7 +78,7 @@ function TheatresForMovie() {
   return (
     movie && (
       <div>
-        {/* movie information */}
+        {/* ข้อมูลของหนัง */}
         <div className="flex justify-between items-center mb-2">
           <div>
             <h1 className="text-2xl uppercase">
@@ -97,7 +107,7 @@ function TheatresForMovie() {
 
         <hr />
 
-        {/* movie theatres */}
+        {/* รายชื่อโรงหนังที่มีการฉาย */}
         <div className="mt-1">
           <h1 className="text-xl uppercase">Theatres</h1>
         </div>
@@ -141,3 +151,11 @@ function TheatresForMovie() {
 }
 
 export default TheatresForMovie;
+
+/**
+ * TheatresForMovie Component:
+ * 
+ * หน้าที่: Component นี้ใช้สำหรับแสดงรายชื่อโรงหนังที่มีการฉายหนังเรื่องนึงตามวันที่ที่กำหนด 
+ * โดยให้ผู้ใช้เลือกวันที่และแสดงรายละเอียดของหนังที่กำลังฉายพร้อมกับรายชื่อของโรงหนังที่ฉาย
+ * 
+ */
