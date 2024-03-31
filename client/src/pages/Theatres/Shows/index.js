@@ -12,6 +12,11 @@ import { AddShow, DeleteShow, GetAllShowsByTheatre } from "../../../apicalls/the
 
 import moment from "moment";
 
+/**
+ * Shows component สำหรับแสดงและจัดการรายการฉายภาพยนตร์ของโรงหนัง
+ * @param {Object} props - ข้อมูลและฟังก์ชันที่ใช้ในการจัดการรายการฉายภาพยนตร์
+ * @returns {JSX.Element} - โค้ด JSX สำหรับแสดงรายการฉายภาพยนตร์ของโรงหนัง
+ */
 function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
   const [view, setView] = React.useState("table");
   const [shows, setShows] = React.useState([]);
@@ -254,9 +259,9 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
                 {/* <input type="number" /> */}
                 <select name="" id="">
                   <option value="">Total Seats</option>
-                  <option value="36">36</option>
-                  <option value="48">48</option>
                   <option value="60">60</option>
+                  <option value="72">72</option>
+                  <option value="84">84</option>
                 </select>
               </Form.Item>
             </Col>
@@ -279,3 +284,15 @@ function Shows({ openShowsModal, setOpenShowsModal, theatre }) {
 }
 
 export default Shows;
+
+/**
+ * Shows Component:
+ * 
+ * หน้าที่และการใช้งาน: Component นี้ใช้สำหรับแสดงและจัดการรายการฉายภาพยนตร์ของโรงหนัง 
+ * ผู้ใช้สามารถเพิ่มหรือลบรายการฉายภาพยนตร์ได้ และมี Modal ในการแสดงรายการฉายภาพยนตร์
+ * 
+ * พารามิเตอร์:
+ * openShowsModal: ค่า boolean ที่ระบุว่า Modal สำหรับแสดงรายการฉายภาพยนตร์เปิดหรือไม่
+ * setOpenShowsModal: ฟังก์ชันที่ใช้ในการตั้งค่าค่า openShowsModal เพื่อปิดหรือเปิด Modal
+ * theatre: ข้อมูลโรงหนังที่ใช้ในการแสดงรายการฉายภาพยนตร์
+ */
