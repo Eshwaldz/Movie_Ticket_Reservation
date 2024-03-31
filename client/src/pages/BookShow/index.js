@@ -12,28 +12,34 @@ import { HideLoading, ShowLoading } from "../../redux/loadersSlice";
 
 import Button from "../../components/Button";
 
-import moment from "moment";
+import moment from "moment"; // นำเข้าไลบรารี moment เพื่อการจัดรูปแบบวันที่และเวลา
 
-
+/**
+ * Component สำหรับการจองตั๋วหนัง
+ * @returns {JSX.Element} - โค้ด JSX สำหรับการจองตั๋วหนัง
+ */
 function BookShow() {
-  const { user } = useSelector((state) => state.users);
-  const [show, setShow] = React.useState(null);
-  const [selectedSeats, setSelectedSeats] = React.useState([]);
+  const { user } = useSelector((state) => state.users); // ดึงข้อมูลผู้ใช้จากสเตตของ Redux
+  const [show, setShow] = React.useState(null); // ตัวแปร state เพื่อเก็บรายละเอียดการแสดง
+  const [selectedSeats, setSelectedSeats] = React.useState([]); // ตัวแปร state เพื่อเก็บที่นั่งที่เลือก
 
-  const params = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const params = useParams(); // ดึงพารามิเตอร์ของเส้นทาง
+  const dispatch = useDispatch(); // ดึงฟังก์ชัน dispatch จาก Redux
+  const navigate = useNavigate(); // ดึงฟังก์ชัน navigate จาก React Router
 
-  const getData = async () => {
+  /**
+   * ฟังก์ชันสำหรับดึงข้อมูลการแสดงตัวอย่าง
+   */
+  const getData = async () => { 
     try {
       dispatch(ShowLoading());
-      const response = await GetShowById({
-        showId: params.id,
+      const response = await GetShowById({ // เรียกใช้งาน GetShowById API function
+        showId: params.id, // ส่ง showId เป็นพารามิเตอร์
       });
       if (response.success) {
-        setShow(response.data);
+        setShow(response.data); // กำหนดรายละเอียดการแสดงให้กับ state
       } else {
-        message.error(response.message);
+        message.error(response.message); // แสดงข้อความผิดพลาด
       }
       dispatch(HideLoading());
     } catch (error) {
@@ -42,43 +48,46 @@ function BookShow() {
     }
   };
 
+  /**
+   * ฟังก์ชันสำหรับแสดงที่นั่งที่ว่างและที่ถูกจอง
+   */
   const getSeats = () => {
-    const columns = 12;
-    const totalSeats = show.totalSeats;
-    const rows = Math.ceil(totalSeats / columns);
+    const columns = 12; // กำหนดจำนวนคอลัมน์สำหรับการจัดที่นั่ง
+    const totalSeats = show.totalSeats; // ดึงจำนวนที่นั่งทั้งหมด
+    const rows = Math.ceil(totalSeats / columns); // คำนวณจำนวนแถว
 
     return (
       <div className="flex gap-1 flex-col p-2 card">
-        {Array.from(Array(rows).keys()).map((seat, index) => {
+        {Array.from(Array(rows).keys()).map((seat, index) => { // วนลูปผ่านแถว
           return (
             <div className="flex gap-1 justify-center">
-              {Array.from(Array(columns).keys()).map((column, index) => {
-                const seatNumber = seat * columns + column + 1;
-                let seatClass = "seat";
+              {Array.from(Array(columns).keys()).map((column, index) => { // วนลูปผ่านคอลัมน์
+                const seatNumber = seat * columns + column + 1; // คำนวณหมายเลขที่นั่ง
+                let seatClass = "seat"; // กำหนดคลาสที่นั่งเริ่มต้น
 
-                if (selectedSeats.includes(seat * columns + column + 1)) {
-                  seatClass = seatClass + " selected-seat";
+                if (selectedSeats.includes(seat * columns + column + 1)) { // ตรวจสอบว่าที่นั่งถูกเลือกหรือไม่
+                  seatClass = seatClass + " selected-seat"; // เพิ่มคลาสที่นั่งที่ถูกเลือก
                 }
 
-                if (show.bookedSeats.includes(seat * columns + column + 1)) {
-                  seatClass = seatClass + " booked-seat";
+                if (show.bookedSeats.includes(seat * columns + column + 1)) { // ตรวจสอบว่าที่นั่งถูกจองหรือไม่
+                  seatClass = seatClass + " booked-seat"; // เพิ่มคลาสที่นั่งที่ถูกจอง
                 }
 
                 return (
-                  seat * columns + column + 1 <= totalSeats && (
+                  seat * columns + column + 1 <= totalSeats && ( // ตรวจสอบว่าเป็นที่นั่งที่ถูกกำหนดหรือไม่
                     <div
-                      className={seatClass}
+                      className={seatClass} // กำหนดคลาสที่นั่ง
                       onClick={() => {
-                        if (selectedSeats.includes(seatNumber)) {
-                          setSelectedSeats(
+                        if (selectedSeats.includes(seatNumber)) { // ตรวจสอบว่าที่นั่งถูกเลือกหรือไม่
+                          setSelectedSeats( // อัปเดตรายการที่นั่งที่เลือก
                             selectedSeats.filter((item) => item !== seatNumber)
                           );
                         } else {
-                          setSelectedSeats([...selectedSeats, seatNumber]);
+                          setSelectedSeats([...selectedSeats, seatNumber]); // เพิ่มที่นั่งที่เลือกเข้าไปในรายการ
                         }
                       }}
                     >
-                      <h1 className="text-sm">{seat * columns + column + 1}</h1>
+                      <h1 className="text-sm">{seat * columns + column + 1}</h1> // แสดงหมายเลขที่นั่งw
                     </div>
                   )
                 );
@@ -90,38 +99,46 @@ function BookShow() {
     );
   };
 
+  /**
+   * ฟังก์ชันสำหรับจองตั๋วหนัง
+   * @param {string} transactionId - รหัสธุรกรรม
+   */
   const book = async (transactionId) => {
     try {
       dispatch(ShowLoading());
-      const response = await BookShowTickets({
-        show: params.id,
-        seats: selectedSeats,
+      const response = await BookShowTickets({ // เรียกใช้งาน BookShowTickets API function
+        show: params.id, // ส่ง showId เป็นพารามิเตอร์
+        seats: selectedSeats, // ส่งที่นั่งที่เลือก
         transactionId,
-        user: user._id,
+        user: user._id, // ส่ง ID ของผู้ใช้
       });
       if (response.success) {
-        message.success(response.message);
-        navigate("/profile");
+        message.success(response.message); // แสดงข้อความสำเร็จ
+        navigate("/profile"); // เปลี่ยนเส้นทางไปยังหน้าโปรไฟล์
       } else {
-        message.error(response.message);
+        message.error(response.message); // แสดงข้อความผิดพลาด
       }
-      dispatch(HideLoading());
+      dispatch(HideLoading()); // ส่งการกระทำเพื่อซ่อนสปินเนอร์
     } catch (error) {
-      message.error(error.message);
+      message.error(error.message); // แสดงข้อความผิดพลาด
       dispatch(HideLoading());
     }
   };
 
+  /**
+   * ฟังก์ชันสำหรับการจ่ายเงินผ่าน Stripe
+   * @param {object} token - ข้อมูล Token จากการจ่ายเงินผ่าน Stripe
+   */
   const onToken = async (token) => {
     try {
       dispatch(ShowLoading());
-      const response = await MakePayment(
+      const response = await MakePayment( // เรียกใช้งาน MakePayment API function
         token,
-        selectedSeats.length * show.ticketPrice * 100
+        selectedSeats.length * show.ticketPrice * 100 // คำนวณยอดเงินที่ต้องจ่าย
       );
       if (response.success) {
         message.success(response.message);
-        book(response.data);
+        book(response.data); // เรียกใช้ฟังก์ชันจองตั๋ว
       } else {
         message.error(response.message);
       }
@@ -132,7 +149,7 @@ function BookShow() {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => { // useEffect hook เพื่อดึงรายละเอียดการแสดงเมื่อคอมโพเนนต์โหลดเสร็จ
     getData();
   }, []);
 
@@ -142,7 +159,7 @@ function BookShow() {
         {/* Show Info */}
         <div className="flex justify-between card p-2 items-center">
           <div>
-            <h1 className="text-sm">{show.theatre.name}</h1>
+            <h1 className="text-sm">{show.theatre.name}</h1> 
             <h1 className="text-sm">{show.theatre.address}</h1>
           </div>
 
@@ -157,7 +174,7 @@ function BookShow() {
               {moment(show.date).format("MMM Do yyyy")} -{" "}
               {moment(show.time, "HH:mm").format("hh:mm A")}
             </h1>
-          </div>
+          </div>  
         </div>
 
         {/* Seats */}
@@ -193,3 +210,11 @@ function BookShow() {
 }
 
 export default BookShow;
+
+/**
+ * BookShow Component:
+ * 
+ * หน้าที่/การใช้งาน: BookShow Component ใช้สำหรับการจองตั๋วหนังโดยแสดงข้อมูลการแสดงตัวอย่างและตารางที่นั่งให้ผู้ใช้เลือก 
+ * โดยมีการใช้งาน Stripe Checkout เพื่อการชำระเงิน.
+ * 
+ */
