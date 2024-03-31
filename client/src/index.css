@@ -1,9 +1,12 @@
+/* การนำเข้าแบบอักษร */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap');
 
+/* สไตล์ของ body */
 body {
     background-color: #f5f5f5;
 }
 
+/* การกำหนดแบบอักษรและการรูปแบบอื่น ๆ สำหรับทั้งหมด */
 *{
     font-family: "Montserrat", sans-serif;
     box-sizing: border-box;
@@ -11,6 +14,7 @@ body {
     padding: 0;
 }
 
+/* สไตล์ของหัวข้อและ span */
 h1, span {
     color: #434343;
 }

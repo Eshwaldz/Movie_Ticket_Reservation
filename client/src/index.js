@@ -6,6 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 
+/**
+ * เริ่มต้นและแสดงแอปพลิเคชัน React ใน DOM.
+ * @param {Object} rootElement องค์ประกอบของ DOM ที่ต้องการที่จะแสดงแอปพลิเคชัน React ลงไป
+ * @return {void}
+ */
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider
