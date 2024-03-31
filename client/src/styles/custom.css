@@ -1,45 +1,55 @@
+/* สไตล์การ์ด */
 .card{
     background-color: #FFF;
     border: 1px solid #b1b1b1;
 }
 
+/* ความกว้าง 400px */
 .w-400 {
     width: 400px;
 }
 
+/* สไตล์เนื้อหา */
 .content {
     min-height: 85vh;
     border : 1px solid #b1b1b1
 }
 
+/* ข้อความขีดเส้นใต้พร้อมตัวชี้ */
 .underline {
     text-decoration: underline;
     cursor: pointer;
 }
 
+/* ขนาดตัวอักษร 18px */
 i{
     font-size: 18px;
 }
 
+/* สไตล์ตาราง */
 table {
     border: 1px solid #b1b1b1;
 }
 
+/* สไตล์หัวตาราง */
 thead th {
     border-bottom: 1px solid #b1b1b1 !important;
     text-transform: uppercase;
 }
 
+/* สไตล์ช่องค้นหา */
 .search-input{
     height: 60px;
     border-radius: 5px;
 }
 
+/* สไตล์เส้นแบ่ง */
 .divider{
     border-bottom: 1px solid #ffffff;
     margin: 10px 0;
 }
 
+/* สไตล์ที่นั่ง */
 .seat {
     height: 30px;
     width: 50px;
@@ -50,6 +60,7 @@ thead th {
     cursor: pointer;
 }
 
+/* สไตล์ที่นั่งที่ถูกเลือก */
 .selected-seat{
     background-color: #4ad758;
 }
@@ -58,20 +69,24 @@ thead th {
     color: #FFF !important;
 }
 
+/* สไตล์ที่นั่งที่ถูกจอง */
 .booked-seat {
     background-color: #b1b1b1;
     cursor: not-allowed;
     pointer-events: none;
 }
 
+/* คลาสตัวชี้ */
 .cursor-pointer {
     cursor: pointer;
 }
 
+/* ข้อความตัวใหญ่ */
 .uppercase {
     text-transform: uppercase;
 }
 
+/* สไตล์พาโหลเด็กกว่า */
 .loader-parent {
     position: fixed;
     background-color: #000;
@@ -83,6 +98,7 @@ thead th {
     z-index: 999999;
 }
 
+/* การ์ดของโหลด */
 .loader {
     height: 30px;
     width: 30px;
@@ -92,6 +108,7 @@ thead th {
     animation: loader-anim 1s linear infinite;
 }
 
+/* แอนิเมชันการ์ดของโหลด */
 @keyframes loader-anim{
     0%{
         transform: rotate(0deg);

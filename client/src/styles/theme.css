@@ -1,52 +1,65 @@
+/* กำหนดตัวแปรสีหลักและรอง */
 :root {
     --color-primary: #1278e6;
     --color-secondary: #e6b412;
 }
 
+/* สไตล์พื้นหลังสีหลัก */
 .bg-primary {
     background-color: var(--color-primary);
 }
 
+/* สไตล์พื้นหลังสีรอง */
 .bg-secondary {
     background-color: var(--color-secondary);
 }
 
+/* สไตล์พื้นหลังสีผิดพลาด */
 bg-error {
     background-color: #FF0000; 
 }
 
+/* สไตล์พื้นหลังสีเตือน */
 .bg-warning {
     background-color: #A2840E;
 }
 
+/* สไตล์พื้นหลังสีขาว */
 .bg-white {
     background-color: #FFFFFF;
 }
 
+/* สไตล์พื้นหลังสีดำ */
 .bg-black {
     background-color: #000000;
 }
 
+/* สไตล์ข้อความสีหลัก */
 .text-primary {
     color: var(--color-primary) !important;
 }
 
+/* สไตล์ข้อความสีรอง */
 .text-secondary {
     color: var(--color-secondary);
 }
 
+/* สไตล์ข้อความสีดำ */
 .text-black {
     color: #000000;
 }
 
+/* สไตล์ข้อความสีขาว */
 .text-white {
     color: #FFFFFF;
 }
 
+/* สไตล์เส้นขอบสีหลัก */
 .border-primary {
     border-color: var(--color-primary);
 }
 
+/* สไตล์เส้นขอบสีรอง */
 .border-secondary {
     border-color: var(--color-secondary);
 }
