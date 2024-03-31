@@ -5,7 +5,21 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const Booking = require("../models/bookingModel");
 const Show = require("../models/showModel");
 
-// PAYMENT
+/**
+ * เส้นทางสำหรับการทำการชำระเงิน
+ * @name POST /api/bookings/make-payment
+ * @function
+ * @memberof bookingRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {Object} req.body.token - โทเค็นการชำระเงิน
+ * @param {string} req.body.token.email - อีเมลของผู้ใช้
+ * @param {string} req.body.token.id - รหัสโทเค็นการชำระเงิน
+ * @param {number} req.body.amount - จำนวนเงิน
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับรหัสธุรกรรมหรือข้อความผิดพลาด
+ */
 router.post("/make-payment", authMiddleware, async (req, res) => {
   try {
     const { token, amount } = req.body;
@@ -38,15 +52,28 @@ router.post("/make-payment", authMiddleware, async (req, res) => {
   }
 });
 
-// TICKET SHOW
+/**
+ * เส้นทางสำหรับการจองตั๋วการแสดง
+ * @name POST /api/bookings/book-show
+ * @function
+ * @memberof bookingRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {Object} req.body.show - รายละเอียดการแสดง
+ * @param {string} req.body.show._id - รหัสการแสดง
+ * @param {string[]} req.body.seats - อาร์เรย์ของหมายเลขที่นั่ง
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับข้อมูลการจองใหม่หรือข้อความผิดพลาด
+ */
 router.post("/book-show", authMiddleware, async (req, res) => {
   try {
-    // SAVE BOOKING
+    // บันทึกการจอง
     const newBooking = new Booking(req.body);
     await newBooking.save();
 
     const show = await Show.findById(req.body.show);
-    // SEATS UPDATE
+    // อัปเดตที่นั่ง
     await Show.findByIdAndUpdate(req.body.show, {
       bookedSeats: [...show.bookedSeats, ...req.body.seats],
     });
@@ -64,7 +91,17 @@ router.post("/book-show", authMiddleware, async (req, res) => {
   }
 });
 
-// GET ALL TICKET BY USER WITH OWN
+/**
+ * เส้นทางสำหรับการดึงข้อมูลการจองทั้งหมดของผู้ใช้
+ * @name GET /api/bookings/get-bookings
+ * @function
+ * @memberof bookingRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {string} req.body.userId - รหัสผู้ใช้
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับอาร์เรย์ของการจองหรือข้อความผิดพลาด
+ */
 router.get("/get-bookings", authMiddleware, async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.body.userId })

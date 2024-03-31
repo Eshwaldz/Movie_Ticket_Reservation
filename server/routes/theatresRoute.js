@@ -4,7 +4,17 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const Theatre = require("../models/theatreModel");
 const Show = require("../models/showModel");
 
-// ADD THEATRE
+/**
+ * เส้นทางสำหรับเพิ่มโรงภาพยนตร์ใหม่
+ * @name POST /api/theatres/add-theatre
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลโรงภาพยนตร์ที่จะเพิ่ม
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จหรือข้อความผิดพลาด
+ */
 router.post("/add-theatre", authMiddleware, async (req, res) => {
   try {
     const newTheatre = new Theatre(req.body);
@@ -21,7 +31,16 @@ router.post("/add-theatre", authMiddleware, async (req, res) => {
   }
 });
 
-// GET ALL THEATRES
+/**
+ * เส้นทางสำหรับดึงข้อมูลโรงภาพยนตร์ทั้งหมด
+ * @name GET /api/theatres/get-all-theatres
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับอาร์เรย์ของโรงภาพยนตร์หรือข้อความผิดพลาด
+ */
 router.get("/get-all-theatres", authMiddleware, async (req, res) => {
   try {
     const theatres = await Theatre.find()
@@ -40,7 +59,18 @@ router.get("/get-all-theatres", authMiddleware, async (req, res) => {
   }
 });
 
-// GET THEATRES BY OWNER
+/**
+ * เส้นทางสำหรับดึงข้อมูลโรงภาพยนตร์โดยเจ้าของ
+ * @name POST /api/theatres/get-all-theatres-by-owner
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {string} req.body.owner - รหัสเจ้าของโรงภาพยนตร์
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับอาร์เรย์ของโรงภาพยนตร์หรือข้อความผิดพลาด
+ */
 router.post("/get-all-theatres-by-owner", authMiddleware, async (req, res) => {
   try {
     const theatres = await Theatre.find({ owner: req.body.owner }).sort({
@@ -59,7 +89,19 @@ router.post("/get-all-theatres-by-owner", authMiddleware, async (req, res) => {
   }
 });
 
-// UPDATE
+/**
+ * เส้นทางสำหรับอัปเดตข้อมูลโรงภาพยนตร์
+ * @name POST /api/theatres/update-theatre
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {string} req.body.theatreId - รหัสโรงภาพยนตร์ที่จะอัปเดต
+ * @param {Object} req.body - ข้อมูลที่ต้องการอัปเดต
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จหรือข้อความผิดพลาด
+ */
 router.post("/update-theatre", authMiddleware, async (req, res) => {
   try {
     await Theatre.findByIdAndUpdate(req.body.theatreId, req.body);
@@ -75,7 +117,18 @@ router.post("/update-theatre", authMiddleware, async (req, res) => {
   }
 });
 
-// DELETE
+/**
+ * เส้นทางสำหรับลบข้อมูลโรงภาพยนตร์
+ * @name POST /api/theatres/delete-theatre
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {string} req.body.theatreId - รหัสโรงภาพยนตร์ที่จะลบ
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จหรือข้อความผิดพลาด
+ */
 router.post("/delete-theatre", authMiddleware, async (req, res) => {
   try {
     await Theatre.findByIdAndDelete(req.body.theatreId);
@@ -91,7 +144,17 @@ router.post("/delete-theatre", authMiddleware, async (req, res) => {
   }
 });
 
-// ADD MOVIE SHOW
+/**
+ * เส้นทางสำหรับเพิ่มการแสดงภาพยนตร์ใหม่
+ * @name POST /api/theatres/add-show
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จหรือข้อความผิดพลาด
+ */
 router.post("/add-show", authMiddleware, async (req, res) => {
   try {
     const newShow = new Show(req.body);
@@ -108,7 +171,18 @@ router.post("/add-show", authMiddleware, async (req, res) => {
   }
 });
 
-// MOVIE SHOW IN THEATRE
+/**
+ * เส้นทางสำหรับดึงข้อมูลการแสดงทั้งหมดโดยใช้โรงภาพยนตร์
+ * @name POST /api/theatres/get-all-shows-by-theatre
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {string} req.body.theatreId - รหัสโรงภาพยนตร์
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับอาร์เรย์ของการแสดงหรือข้อความผิดพลาด
+ */
 router.post("/get-all-shows-by-theatre", authMiddleware, async (req, res) => {
   try {
     const shows = await Show.find({ theatre: req.body.theatreId })
@@ -130,7 +204,18 @@ router.post("/get-all-shows-by-theatre", authMiddleware, async (req, res) => {
   }
 });
 
-// DELETE MOVIE SHOW IN THEATRE
+/**
+ * เส้นทางสำหรับลบการแสดงภาพยนตร์ในโรงภาพยนตร์
+ * @name POST /api/theatres/delete-show
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {string} req.body.showId - รหัสการแสดงภาพยนตร์ที่จะลบ
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จหรือข้อความผิดพลาด
+ */
 router.post("/delete-show", authMiddleware, async (req, res) => {
   try {
     await Show.findByIdAndDelete(req.body.showId);
@@ -146,17 +231,29 @@ router.post("/delete-show", authMiddleware, async (req, res) => {
   }
 });
 
-// GET ALL UNIQUE THEATRES
+/**
+ * เส้นทางสำหรับดึงโรงภาพยนตร์ที่ไม่ซ้ำกันทั้งหมดสำหรับภาพยนตร์และวันที่ที่กำหนด
+ * @name POST /api/theatres/get-all-theatres-by-movie
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {string} req.body.movie - รหัสภาพยนตร์
+ * @param {string} req.body.date - วันที่
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับอาร์เรย์ของโรงภาพยนตร์หรือข้อความผิดพลาด
+ */
 router.post("/get-all-theatres-by-movie", authMiddleware, async (req, res) => {
   try {
     const { movie, date } = req.body;
 
-    //MOVIE SHOW
+    // การแสดงภาพยนตร์
     const shows = await Show.find({ movie, date })
       .populate("theatre")
       .sort({ createdAt: -1 });
 
-    // UNIQUE THEATRES
+    // โรงภาพยนตร์ที่ไม่ซ้ำกัน
     let uniqueTheatres = [];
     shows.forEach((show) => {
       const theatre = uniqueTheatres.find(
@@ -187,7 +284,18 @@ router.post("/get-all-theatres-by-movie", authMiddleware, async (req, res) => {
   }
 });
 
-// GET SHOW BY ID
+/**
+ * เส้นทางสำหรับดึงข้อมูลการแสดงตามรหัสการแสดงที่กำหนด
+ * @name POST /api/theatres/get-show-by-id
+ * @function
+ * @memberof theatreRoutes
+ * @inner
+ * @param {Object} req - อ็อบเจ็กต์คำขอ Express
+ * @param {Object} req.body - ข้อมูลคำขอ
+ * @param {string} req.body.showId - รหัสการแสดง
+ * @param {Object} res - อ็อบเจ็กต์คำตอบ Express
+ * @returns {Object} สถานะและข้อความสำเร็จพร้อมกับข้อมูลการแสดงหรือข้อความผิดพลาด
+ */
 router.post("/get-show-by-id", authMiddleware, async (req, res) => {
   try {
     const show = await Show.findById(req.body.showId)
@@ -207,5 +315,3 @@ router.post("/get-show-by-id", authMiddleware, async (req, res) => {
 });
 
 module.exports = router;
-
-// *******
