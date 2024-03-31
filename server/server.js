@@ -21,6 +21,17 @@ app.use("/api/bookings", bookingsRoute);
 // กำหนดพอร์ตที่ Express จะรันบน
 const port = process.env.PORT || 5000;
 
+const path = require("path");
+__dirname = path.resolve();
+
+// render deployment
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/client/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  });
+}
+
 // เริ่มต้น Express ให้รอการเชื่อมต่อบนพอร์ตที่กำหนด
 app.listen(port, () =>
   console.log(`Node JS Server is running on port ${port}`)
