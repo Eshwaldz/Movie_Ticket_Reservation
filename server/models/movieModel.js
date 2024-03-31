@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// กำหนดโครงสร้างข้อมูลสำหรับหนัง
 const movieSchema = new mongoose.Schema(
   {
     title: {
@@ -31,9 +32,8 @@ const movieSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true } // เพิ่ม timestamps สำหรับ createdAt และ updatedAt
 );
 
+// สร้างและ export โมเดล Movie
 module.exports = mongoose.model("movies", movieSchema);
-
-// *******

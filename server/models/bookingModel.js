@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 
+// กำหนดโครงสร้างข้อมูลสำหรับการจอง
 const bookingSchema = new mongoose.Schema(
   {
     show: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "shows",
+      ref: "shows", // อ้างอิงไปยังโมเดล shows
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      ref: "users", // อ้างอิงไปยังโมเดล users
     },
     seats: {
       type: Array,
@@ -19,9 +20,8 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true } // เพิ่ม timestamps สำหรับ createdAt และ updatedAt
 );
 
+// สร้างและ export โมเดล Booking
 module.exports = mongoose.model("bookings", bookingSchema);
-
-// *******

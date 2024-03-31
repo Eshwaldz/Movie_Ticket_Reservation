@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// กำหนดโครงสร้างข้อมูลสำหรับโรงหนัง
 const theatreSchema = new mongoose.Schema(
   {
     name: {
@@ -20,16 +21,15 @@ const theatreSchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      ref: "users", // อ้างอิงไปยังโมเดล users
     },
     isActive: {
       type: Boolean,
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true } // เพิ่ม timestamps สำหรับ createdAt และ updatedAt
 );
 
+// สร้างและ export โมเดล Theatre
 module.exports = mongoose.model("theatres", theatreSchema);
-
-// *******

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// กำหนดโครงสร้างข้อมูลสำหรับการแสดง
 const showSchema = new mongoose.Schema({
     name : {
         type: String,
@@ -15,7 +16,7 @@ const showSchema = new mongoose.Schema({
     },
     movie : {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'movies',
+        ref: 'movies', // อ้างอิงไปยังโมเดล movies
         required: true
     },
     ticketPrice : {
@@ -32,13 +33,11 @@ const showSchema = new mongoose.Schema({
     },
     theatre : {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'theatres',
+        ref: 'theatres', // อ้างอิงไปยังโมเดล theatres
         required: true
     },
-} , { timestamps: true });
+} , { timestamps: true }); // เพิ่ม timestamps สำหรับ createdAt และ updatedAt
 
+// สร้างและ export โมเดล Show
 const Show = mongoose.model('shows', showSchema);
-
 module.exports = Show;
-
-// *******
