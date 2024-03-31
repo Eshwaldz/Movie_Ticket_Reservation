@@ -10,15 +10,23 @@ import { GetAllMovies } from "../../apicalls/movies";
 
 import moment from "moment";
 
+/**
+ * Component สำหรับหน้า Home ของเว็บไซต์
+ * @returns {JSX.Element} - โค้ด JSX สำหรับหน้า Home
+ */
 function Home() {
-  const [searchText = "", setSearchText] = React.useState("");
-  const [movies, setMovies] = React.useState([]);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [searchText = "", setSearchText] = React.useState(""); // สถานะสำหรับค้นหาข้อความ
+  const [movies, setMovies] = React.useState([]); // สถานะสำหรับเก็บข้อมูลหนัง
+  const navigate = useNavigate(); // hook สำหรับการนำทาง
+  const dispatch = useDispatch(); // hook สำหรับการใช้งาน dispatch
+
+  /**
+   * ฟังก์ชันสำหรับดึงข้อมูลหนังทั้งหมด
+   */
   const getData = async () => {
     try {
       dispatch(ShowLoading());
-      const response = await GetAllMovies();
+      const response = await GetAllMovies(); // เรียกใช้งาน API เพื่อดึงข้อมูลหนังทั้งหมด
       if (response.success) {
         setMovies(response.data);
       } else {
@@ -36,6 +44,7 @@ function Home() {
   }, []);
   return (
     <div>
+      {/* Input สำหรับค้นหา */}
       <input
         type="text"
         className="search-input"
@@ -44,6 +53,7 @@ function Home() {
         onChange={(e) => setSearchText(e.target.value)}
       />
 
+      {/* แสดงรายการหนัง */}
       <Row gutter={[20]} className="mt-2">
         {movies
           .filter((movie) =>
@@ -51,14 +61,17 @@ function Home() {
           )
           .map((movie) => (
             <Col span={6}>
+              {/* แสดงรายละเอียดของหนังแต่ละเรื่อง */}
               <div
-                className="card flex flex-col gap-1 cursor-pointer"
+                className="card flex flex-col gap-1 cursor-pointer mb-1"
                 onClick={() =>
                   navigate(
                     `/movie/${movie._id}?date=${moment().format("YYYY-MM-DD")}`
                   )
                 }
               >
+
+                {/* แสดงรูปภาพโปสเตอร์ของหนัง */}
                 <img src={movie.poster} alt="" height={200} />
 
                 <div className="flex justify-center p-1">
@@ -73,3 +86,9 @@ function Home() {
 }
 
 export default Home;
+
+/**
+ * Home Component:
+ * 
+ * หน้าที่/การใช้งาน: Home Component ใช้สำหรับแสดงหน้า Home ของเว็บไซต์ โดยมีการแสดงรายการหนังทั้งหมดที่มีในระบบและมีช่องค้นหาเพื่อค้นหาหนังตามชื่อ.
+ */
