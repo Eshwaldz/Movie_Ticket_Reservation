@@ -87,7 +87,11 @@ function BookShow() {
                         }
                       }}
                     >
+<<<<<<< Updated upstream
                       <h1 className="text-sm">{seat * columns + column + 1}</h1>
+=======
+                      <h1 className="text-sm">{seat * columns + column + 1}</h1> //Test Seat
+>>>>>>> Stashed changes
                     </div>
                   )
                 );
